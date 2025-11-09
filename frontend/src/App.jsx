@@ -81,7 +81,7 @@ export default function App() {
         <Nav user={user} onLogout={handleLogout} />
         <main className={styles.mainContent}>
           <Routes>
-            <Route path="/" element={<Feed />} />
+            <Route path="/" element={<Feed user={user} />} />
             <Route path="/login" element={<Login onLogin={handleLogin} />} />
             <Route
               path="/register"

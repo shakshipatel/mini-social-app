@@ -51,14 +51,27 @@ const postSchema = new mongoose.Schema({
   title: String,
   body: String,
   createdAt: { type: Date, default: Date.now },
+  // array of user ids who liked the post
+  likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
 });
 
 const Post = mongoose.model("Post", postSchema);
+
+// Comment model to support post comments
+const commentSchema = new mongoose.Schema({
+  postId: mongoose.Schema.Types.ObjectId,
+  userId: mongoose.Schema.Types.ObjectId,
+  body: String,
+  createdAt: { type: Date, default: Date.now },
+});
+
+const Comment = mongoose.model("Comment", commentSchema);
 
 module.exports = {
   connectMongo,
   disconnectMongo,
   User,
   Post,
+  Comment,
   isConnected: () => isConnected,
 };
