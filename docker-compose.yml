@@ -1,0 +1,61 @@
+version: "3.8"
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mini-social-mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: mini_social_app
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password123
+    volumes:
+      - mongo_data:/data/db
+      - ./backend/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: mini-social-backend
+    ports:
+      - "4000:4000"
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+      MONGO_URL: mongodb://admin:password123@mongodb:27017/mini_social_app?authSource=admin
+      JWT_SECRET: ${JWT_SECRET:-dev_secret_key_change_in_prod}
+      PORT: 4000
+      CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:3000}
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: mini-social-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      VITE_API_URL: ${VITE_API_URL:-http://localhost:4000/api}
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  mongo_data:
+
+networks:
+  default:
+    name: mini-social-network

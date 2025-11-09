@@ -1,0 +1,141 @@
+@import url("https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Urbanist", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #f9fafb;
+  color: #1f2937;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 0 20px;
+  height: 72px;
+  background: white;
+  border-bottom: 1px solid #e5e7eb;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  @media (max-width: 768px) {
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 12px 20px;
+    height: auto;
+  }
+}
+
+.navBrand {
+  font-size: 20px;
+  font-weight: 700;
+  color: #667eea;
+  text-decoration: none;
+  transition: opacity 0.2s;
+  white-space: nowrap;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.navLink {
+  color: #6b7280;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  transition: color 0.2s;
+
+  &:hover {
+    color: #667eea;
+  }
+}
+
+.navRight {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+
+.navGreeting {
+  color: #374151;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 12px;
+  background: #f3f4f6;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.btnLogout,
+.btnSecondary,
+.btnPrimary {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.btnLogout {
+  background: #f3f4f6;
+  color: #374151;
+
+  &:hover {
+    background: #e5e7eb;
+  }
+}
+
+.btnSecondary {
+  color: #667eea;
+  background: transparent;
+  border: 1px solid #667eea;
+
+  &:hover {
+    background: #f0f4ff;
+  }
+}
+
+.btnPrimary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  }
+}
+
+.mainContent {
+  flex: 1;
+  background: #f9fafb;
+}

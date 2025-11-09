@@ -1,0 +1,53 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  test-backend:
+    runs-on: ubuntu-latest
+    services:
+      mongodb:
+        image: mongo:7-alpine
+        options: >-
+          --health-cmd mongosh --health-interval 10s --health-timeout 5s --health-retries 5
+        ports:
+          - 27017:27017
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+      - name: Install backend deps
+        run: cd backend && npm ci
+      - name: Run backend tests
+        run: cd backend && npm test
+        env:
+          MONGO_URL: mongodb://localhost:27017/mini_social_app_test
+
+  test-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+      - name: Install frontend deps
+        run: cd frontend && npm ci
+      - name: Build frontend
+        run: cd frontend && npm run build
+
+  docker-build:
+    needs: [test-backend, test-frontend]
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v3
+      - uses: docker/setup-buildx-action@v2
+      - name: Build and push images
+        run: |
+          docker build -t mini-social-backend:latest ./backend
+          docker build -t mini-social-frontend:latest ./frontend

@@ -1,0 +1,207 @@
+=== Deployment Log ===
+Timestamp: 2025-11-09 02:11:34
+Environment: development
+
+[0;34m[INFO][0m Starting deployment process...
+[0;34m[INFO][0m Environment: development
+[0;34m[INFO][0m Logs saved to: /d/Products/Shakshi Task/mini-social-app/deploy.log
+
+[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+[0;34m1️⃣  CHECKING PREREQUISITES[0m
+[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+[0;32m[✓][0m Docker installed: 28.2.2
+[0;32m[✓][0m Docker Compose installed: version
+[0;32m[✓][0m Node.js installed: v22.20.0
+[0;32m[✓][0m npm installed: 8.14.0
+[1;33m[⚠][0m MongoDB CLI not found (optional for local development)
+[0;32m[✓][0m All prerequisites met!
+
+[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+[0;34m2️⃣  SETTING UP ENVIRONMENT[0m
+[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+[1;33m[⚠][0m .env.example not found, proceeding without it
+[0;32m[✓][0m Environment setup complete
+
+[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+[0;34m3️⃣  INSTALLING DEPENDENCIES[0m
+[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+[0;34m[INFO][0m Installing backend dependencies...
+[0;32m[✓][0m Backend dependencies installed
+[0;34m[INFO][0m Installing frontend dependencies...
+[0;32m[✓][0m Frontend dependencies installed
+
+[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+[0;34m4️⃣  RUNNING TESTS[0m
+[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+[0;34m[INFO][0m Running backend tests...
+
+> mini-social-app-backend@0.1.0 test
+> jest --runInBand --forceExit --verbose
+
+  console.log
+    Connected to MongoDB at mongodb://localhost:27017/mini_social_app_test
+
+      at log (mongo.js:18:13)
+
+  console.log
+    [INFO] POST /register - 200 (86ms)
+
+      at ServerResponse.log (index.js:18:13)
+
+  console.log
+    [INFO] POST /login - 200 (70ms)
+
+      at ServerResponse.log (index.js:18:13)
+
+  console.log
+    Disconnected from MongoDB
+
+      at log (mongo.js:30:13)
+
+PASS tests/auth.test.js
+  Auth endpoints
+    √ register -> login flow (221 ms)
+
+  console.log
+    Connected to MongoDB at mongodb://localhost:27017/mini_social_app_test
+
+      at log (mongo.js:18:13)
+
+  console.log
+    [INFO] POST /register - 200 (74ms)
+
+      at ServerResponse.log (index.js:18:13)
+
+  console.log
+    [INFO] POST / - 201 (7ms)
+
+      at ServerResponse.log (index.js:18:13)
+
+  console.log
+    [INFO] GET / - 200 (4ms)
+
+      at ServerResponse.log (index.js:18:13)
+
+  console.log
+    Disconnected from MongoDB
+
+      at log (mongo.js:30:13)
+
+PASS tests/posts.test.js
+  Posts endpoints
+    √ create and list posts (auth required) (116 ms)
+
+Test Suites: 2 passed, 2 total
+Tests:       2 passed, 2 total
+Snapshots:   0 total
+Time:        1.835 s, estimated 4 s
+Ran all test suites.
+Force exiting Jest: Have you considered using `--detectOpenHandles` to detect async operations that kept running after all tests finished?
+[0;32m[✓][0m All tests passed!
+
+[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+[0;34m5️⃣  BUILDING FRONTEND[0m
+[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+[0;34m[INFO][0m Building frontend for production...
+[0;32m[✓][0m Frontend built successfully (Size: 213K)
+
+[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+[0;34m6️⃣  BUILDING DOCKER IMAGES[0m
+[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+[0;34m[INFO][0m Building backend Docker image...
+[0;32m[✓][0m Backend image built: mini-social-backend:latest
+[0;34m[INFO][0m Building frontend Docker image...
+[0;32m[✓][0m Frontend image built: mini-social-frontend:latest
+[0;34m[INFO][0m Docker images created:
+mini-social-backend        latest    0dd96f698ecb   3 seconds ago    463MB
+mini-social-app-backend    latest    b4021e2a7074   13 minutes ago   532MB
+mini-social-app-frontend   latest    ae0a722a3047   34 minutes ago   134MB
+mini-social-frontend       latest    ae0a722a3047   34 minutes ago   134MB
+
+[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+[0;34m7️⃣  STARTING SERVICES[0m
+[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+[0;34m[INFO][0m Starting services in DEVELOPMENT mode...
+[0;34m[INFO][0m Waiting for services to be ready...
+[0;32m[✓][0m Services started!
+
+[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+[0;34m8️⃣  VERIFYING DEPLOYMENT[0m
+[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+[0;34m[INFO][0m Checking container status...
+NAME                   IMAGE                      COMMAND                  SERVICE    CREATED          STATUS                    PORTS
+mini-social-backend    mini-social-app-backend    "dumb-init -- npm st…"   backend    19 seconds ago   Up 6 seconds              0.0.0.0:4000->4000/tcp, [::]:4000->4000/tcp
+mini-social-frontend   mini-social-app-frontend   "dumb-init -- http-s…"   frontend   18 seconds ago   Up 5 seconds              0.0.0.0:3000->3000/tcp, [::]:3000->3000/tcp
+mini-social-mongodb    mongo:latest               "docker-entrypoint.s…"   mongodb    19 seconds ago   Up 17 seconds (healthy)   0.0.0.0:27017->27017/tcp, [::]:27017->27017/tcp
+[0;34m[INFO][0m Checking backend health...
+[0;32m[✓][0m Backend is healthy ✓
+[0;34m[INFO][0m Service URLs:
+[1;33mFrontend:[0m http://localhost:3000
+[1;33mBackend:[0m http://localhost:4000
+[1;33mMongoDB:[0m localhost:27017
+[0;32m[✓][0m Deployment verified!
+
+[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+[0;34m✨ DEPLOYMENT COMPLETE![0m
+[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+[0;32m[✓][0m Your Mini Social App has been successfully deployed!
+[0;34m[INFO][0m Environment: development
+[0;34m[INFO][0m Access the application:
+[0;34m[INFO][0m   Frontend: http://localhost:3000
+[0;34m[INFO][0m   Backend:  http://localhost:4000
+[0;34m[INFO][0m View logs with: docker-compose logs -f
+[0;34m[INFO][0m Stop services with: docker-compose down
+[0;34m[INFO][0m Full deployment log: /d/Products/Shakshi Task/mini-social-app/deploy.log
+
+[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+[0;34m📋 DEPLOYMENT LOGS[0m
+[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+[0;34m[INFO][0m Recent logs from services:
+mini-social-mongodb  | {"t":{"$date":"2025-11-08T20:43:57.392+00:00"},"s":"I",  "c":"ACCESS",   "id":10483900,"ctx":"conn5","msg":"Connection not authenticating","attr":{"client":"127.0.0.1:47512","doc":{"application":{"name":"mongosh 2.5.8"},"driver":{"name":"nodejs|mongosh","version":"6.19.0|2.5.8"},"platform":"Node.js v20.19.5, LE","os":{"name":"linux","architecture":"x64","version":"3.10.0-327.22.2.el7.x86_64","type":"Linux"},"env":{"container":{"runtime":"docker"}}}}}
+mini-social-mongodb  | {"t":{"$date":"2025-11-08T20:43:57.395+00:00"},"s":"I",  "c":"NETWORK",  "id":6788700, "ctx":"conn5","msg":"Received first command on ingress connection since session start or auth handshake","attr":{"elapsedMillis":2}}
+mini-social-mongodb  | {"t":{"$date":"2025-11-08T20:43:57.410+00:00"},"s":"I",  "c":"NETWORK",  "id":22944,   "ctx":"conn5","msg":"Connection ended","attr":{"remote":"127.0.0.1:47512","isLoadBalanced":false,"uuid":{"uuid":{"$uuid":"839aa601-dc6b-4e0f-842b-170aedfe6f14"}},"connectionId":5,"connectionCount":4}}
+mini-social-mongodb  | {"t":{"$date":"2025-11-08T20:43:57.410+00:00"},"s":"I",  "c":"NETWORK",  "id":22944,   "ctx":"conn2","msg":"Connection ended","attr":{"remote":"127.0.0.1:47476","isLoadBalanced":false,"uuid":{"uuid":{"$uuid":"6f2a35a1-524f-47f1-9dda-d063fa85904d"}},"connectionId":2,"connectionCount":3}}
+mini-social-mongodb  | {"t":{"$date":"2025-11-08T20:43:57.411+00:00"},"s":"I",  "c":"NETWORK",  "id":22944,   "ctx":"conn4","msg":"Connection ended","attr":{"remote":"127.0.0.1:47496","isLoadBalanced":false,"uuid":{"uuid":{"$uuid":"a1ff5410-08b6-485b-b0eb-c22bdc02caa3"}},"connectionId":4,"connectionCount":2}}
+mini-social-mongodb  | {"t":{"$date":"2025-11-08T20:43:57.411+00:00"},"s":"I",  "c":"NETWORK",  "id":22944,   "ctx":"conn1","msg":"Connection ended","attr":{"remote":"127.0.0.1:47462","isLoadBalanced":false,"uuid":{"uuid":{"$uuid":"9d6f4848-4ec3-40e3-83d5-e052c78056ea"}},"connectionId":1,"connectionCount":1}}
+mini-social-mongodb  | {"t":{"$date":"2025-11-08T20:43:57.411+00:00"},"s":"I",  "c":"NETWORK",  "id":22944,   "ctx":"conn3","msg":"Connection ended","attr":{"remote":"127.0.0.1:47492","isLoadBalanced":false,"uuid":{"uuid":{"$uuid":"ead17521-143f-4ac7-a072-28c2aeb123a0"}},"connectionId":3,"connectionCount":0}}
+mini-social-mongodb  | {"t":{"$date":"2025-11-08T20:43:59.330+00:00"},"s":"I",  "c":"NETWORK",  "id":22943,   "ctx":"listener","msg":"Connection accepted","attr":{"remote":"172.19.0.3:58200","isLoadBalanced":false,"uuid":{"uuid":{"$uuid":"732a228d-1b8e-4ed3-a194-640b8beba009"}},"connectionId":6,"connectionCount":1}}
+mini-social-mongodb  | {"t":{"$date":"2025-11-08T20:43:59.333+00:00"},"s":"I",  "c":"NETWORK",  "id":51800,   "ctx":"conn6","msg":"client metadata","attr":{"remote":"172.19.0.3:58200","client":"conn6","negotiatedCompressors":[],"doc":{"driver":{"name":"nodejs|Mongoose","version":"5.9.2|7.8.7"},"platform":"Node.js v18.20.8, LE","os":{"name":"linux","architecture":"x64","version":"6.6.87.2-microsoft-standard-WSL2","type":"Linux"}}}}
+mini-social-mongodb  | {"t":{"$date":"2025-11-08T20:43:59.333+00:00"},"s":"I",  "c":"ACCESS",   "id":10483900,"ctx":"conn6","msg":"Connection not authenticating","attr":{"client":"172.19.0.3:58200","doc":{"driver":{"name":"nodejs|Mongoose","version":"5.9.2|7.8.7"},"platform":"Node.js v18.20.8, LE","os":{"name":"linux","architecture":"x64","version":"6.6.87.2-microsoft-standard-WSL2","type":"Linux"}}}}
+mini-social-mongodb  | {"t":{"$date":"2025-11-08T20:43:59.338+00:00"},"s":"I",  "c":"NETWORK",  "id":22943,   "ctx":"listener","msg":"Connection accepted","attr":{"remote":"172.19.0.3:58212","isLoadBalanced":false,"uuid":{"uuid":{"$uuid":"12c80c90-14de-42c4-8986-2f21b9d1289c"}},"connectionId":7,"connectionCount":2}}
+mini-social-mongodb  | {"t":{"$date":"2025-11-08T20:43:59.340+00:00"},"s":"I",  "c":"NETWORK",  "id":51800,   "ctx":"conn7","msg":"client metadata","attr":{"remote":"172.19.0.3:58212","client":"conn7","negotiatedCompressors":[],"doc":{"driver":{"name":"nodejs|Mongoose","version":"5.9.2|7.8.7"},"platform":"Node.js v18.20.8, LE","os":{"name":"linux","architecture":"x64","version":"6.6.87.2-microsoft-standard-WSL2","type":"Linux"}}}}
+mini-social-mongodb  | {"t":{"$date":"2025-11-08T20:43:59.341+00:00"},"s":"I",  "c":"ACCESS",   "id":6788604, "ctx":"conn7","msg":"Auth metrics report","attr":{"metric":"acquireUser","micros":0}}
+mini-social-mongodb  | {"t":{"$date":"2025-11-08T20:43:59.350+00:00"},"s":"I",  "c":"ACCESS",   "id":5286306, "ctx":"conn7","msg":"Successfully authenticated","attr":{"client":"172.19.0.3:58212","isSpeculative":true,"isClusterMember":false,"mechanism":"SCRAM-SHA-256","user":"admin","db":"admin","result":0,"metrics":{"conversation_duration":{"micros":8853,"summary":{"0":{"step":1,"step_total":2,"duration_micros":66},"1":{"step":2,"step_total":2,"duration_micros":23}}}},"doc":{"driver":{"name":"nodejs|Mongoose","version":"5.9.2|7.8.7"},"platform":"Node.js v18.20.8, LE","os":{"name":"linux","architecture":"x64","version":"6.6.87.2-microsoft-standard-WSL2","type":"Linux"}},"extraInfo":{}}}
+mini-social-backend  | 
+mini-social-backend  | > mini-social-app-backend@0.1.0 start
+mini-social-mongodb  | {"t":{"$date":"2025-11-08T20:43:59.351+00:00"},"s":"I",  "c":"NETWORK",  "id":6788700, "ctx":"conn7","msg":"Received first command on ingress connection since session start or auth handshake","attr":{"elapsedMillis":1}}
+mini-social-backend  | > node index.js
+mini-social-backend  | 
+mini-social-backend  | [INFO] Server listening on http://localhost:4000
+mini-social-backend  | [INFO] Node environment: development
+mini-social-backend  | Connected to MongoDB at mongodb://admin:password123@mongodb:27017/mini_social_app?authSource=admin
+mini-social-backend  | [INFO] GET /health - 200 (5ms)
+mini-social-mongodb  | {"t":{"$date":"2025-11-08T20:43:59.359+00:00"},"s":"I",  "c":"NETWORK",  "id":22943,   "ctx":"listener","msg":"Connection accepted","attr":{"remote":"172.19.0.3:58228","isLoadBalanced":false,"uuid":{"uuid":{"$uuid":"6f6edcaa-24b7-47ed-afa3-6657e65fdb09"}},"connectionId":8,"connectionCount":3}}
+mini-social-mongodb  | {"t":{"$date":"2025-11-08T20:43:59.361+00:00"},"s":"I",  "c":"NETWORK",  "id":51800,   "ctx":"conn8","msg":"client metadata","attr":{"remote":"172.19.0.3:58228","client":"conn8","negotiatedCompressors":[],"doc":{"driver":{"name":"nodejs|Mongoose","version":"5.9.2|7.8.7"},"platform":"Node.js v18.20.8, LE","os":{"name":"linux","architecture":"x64","version":"6.6.87.2-microsoft-standard-WSL2","type":"Linux"}}}}
+mini-social-mongodb  | {"t":{"$date":"2025-11-08T20:43:59.361+00:00"},"s":"I",  "c":"ACCESS",   "id":6788604, "ctx":"conn8","msg":"Auth metrics report","attr":{"metric":"acquireUser","micros":0}}
+mini-social-mongodb  | {"t":{"$date":"2025-11-08T20:43:59.362+00:00"},"s":"I",  "c":"ACCESS",   "id":5286306, "ctx":"conn8","msg":"Successfully authenticated","attr":{"client":"172.19.0.3:58228","isSpeculative":true,"isClusterMember":false,"mechanism":"SCRAM-SHA-256","user":"admin","db":"admin","result":0,"metrics":{"conversation_duration":{"micros":1436,"summary":{"0":{"step":1,"step_total":2,"duration_micros":35},"1":{"step":2,"step_total":2,"duration_micros":28}}}},"doc":{"driver":{"name":"nodejs|Mongoose","version":"5.9.2|7.8.7"},"platform":"Node.js v18.20.8, LE","os":{"name":"linux","architecture":"x64","version":"6.6.87.2-microsoft-standard-WSL2","type":"Linux"}},"extraInfo":{}}}
+mini-social-mongodb  | {"t":{"$date":"2025-11-08T20:43:59.363+00:00"},"s":"I",  "c":"NETWORK",  "id":6788700, "ctx":"conn8","msg":"Received first command on ingress connection since session start or auth handshake","attr":{"elapsedMillis":0}}
+mini-social-frontend  | Starting up http-server, serving dist
+mini-social-frontend  | 
+mini-social-frontend  | http-server version: 14.1.1
+mini-social-frontend  | 
+mini-social-frontend  | http-server settings: 
+mini-social-frontend  | CORS: disabled
+mini-social-frontend  | Cache: -1 seconds
+mini-social-frontend  | Connection Timeout: 120 seconds
+mini-social-frontend  | Directory Listings: visible
+mini-social-frontend  | AutoIndex: visible
+mini-social-frontend  | Serve GZIP Files: false
+mini-social-frontend  | Serve Brotli Files: false
+mini-social-frontend  | Default File Extension: none
+mini-social-frontend  | 
+mini-social-frontend  | Available on:
+mini-social-frontend  |   http://127.0.0.1:3000
+mini-social-frontend  |   http://172.19.0.4:3000
+mini-social-frontend  | Hit CTRL-C to stop the server
+mini-social-frontend  | 
+[0;32m[✓][0m Deployment process completed successfully! 🚀
